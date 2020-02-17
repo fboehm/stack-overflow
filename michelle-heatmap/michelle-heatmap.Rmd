@@ -1,0 +1,22 @@
+---
+title: "Michelle's heatmap"
+author: "Frederick J. Boehm"
+date: "2/17/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(magrittr)
+data <- read.csv("untreated_timecourse_significant.csv")
+data_mat <- as.matrix(data[,-1])
+rownames(data_mat) <- data[,1]
+dmhc <- data_mat %>% 
+  dist() %>%
+  hclust(method = "complete")
+iheatmapr::iheatmap(data_mat[dmhc$order[length(dmhc$order):1], ], cluster_rows = "none", cluster_cols = "none", colors = "pal4")
+```
+
