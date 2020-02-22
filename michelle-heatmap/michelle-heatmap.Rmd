@@ -17,6 +17,12 @@ rownames(data_mat) <- data[,1]
 dmhc <- data_mat %>% 
   dist() %>%
   hclust(method = "complete")
-iheatmapr::iheatmap(data_mat[dmhc$order[length(dmhc$order):1], ], cluster_rows = "none", cluster_cols = "none", colors = "pal4")
+iheatmapr::iheatmap(data_mat[dmhc$order, ], cluster_rows = "none", cluster_cols = "none", colors = "pal4")
+iheatmapr::iheatmap(data_mat[dmhc_reordered$order], cluster_rows = "none", cluster_cols = "none", colors = "pal4")
 ```
 
+```{r}
+dat <- tibble::tibble(y1 = rnorm(5), y2 = rnorm(5))
+data_mat <- as.matrix(dat)
+iheatmapr::iheatmap(data_mat, cluster_rows = "hclust")
+```
